@@ -1,0 +1,47 @@
+version: '3.9' 
+
+service:
+    reverse:
+        container_name: reverse
+        hostname: reverse
+        image: nginx
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./nginx/etc/config:/etc/nginx
+            - ./nginx/etc/certs:/etc/ssl/private
+    idp-catena:
+        container_name: idp-catena
+        hostname: idp-catena
+        image: cavadevop/idp-catena:beta
+        environment:
+            MONGODB_URI: "mongodb+srv://aws-dev-idp:awsDevIdpCatena2021@dev-catena.yuofs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+            REDIS_HOST: "dev-redis:6379"
+            HYDRA_ADMIN_HOST: "172.31.84.238:9001"
+            ENABLE_TLS_VERIFICATION: 0
+            OAUTH_LOGIN_CALLBACK: "https://ec2-54-204-24-52.compute-1.amazonaws.com/api/v1/oauth2/login"
+            OAUTH_CONSENT_CALLBACK: "https://ec2-54-204-24-52.compute-1.amazonaws.com/api/v1/oauth2/authorize"
+            PORT_LISTEN: 5000
+    ifps-api:
+        container_name: ipfs-api
+        hostname: ipfs-api
+        image: cavadevop/ipfs-api:beta
+        environment:
+            MONGODB_URIi: "mongodb+srv://aws-dev-ipfs-api:awsDevIpfsApiCatena2021@dev-catena.yuofs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+            JWT_VALIDATION_URI: "http://idp-catena:5000/v1/auth/validate_token"
+            ADMIN_HYDRA_HOST: "172.31.84.238:9001"
+            IPFS_API_SERVER_URI: "http://172.31.78.68:5001/api/v0/"
+            IPFS_GATEWAY_URI: "http://172.31.78.68:7000/ipfs/"
+            PORT_LISTEN: 4000
+            ENABLE_TLS_VERIFICATION: 0
+        ports:
+            - 5001:5001
+            - 7000:7000
+    dev-redis:
+        container_name: dev-redis
+        hostname: dev-redis
+        image: redis
+networks: 
+    default:
+        name: backend
