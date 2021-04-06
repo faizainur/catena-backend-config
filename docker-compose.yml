@@ -35,7 +35,7 @@ services:
             - "4000"
         environment:
             MONGODB_URI: ${MONGODB_URI_IPFS}
-            JWT_VALIDATION_URI: "http://idp-catena:5000/v1/auth/validate_token"
+            JWT_VALIDATION_URI: "http://idp-catena:5000/api/v1/auth/validate_token"
             ADMIN_HYDRA_HOST: "172.31.84.238:9001"
             IPFS_API_SERVER_URI: "http://172.31.78.68:5001/api/v0/"
             IPFS_GATEWAY_URI: "http://172.31.78.68:7000/ipfs/"
