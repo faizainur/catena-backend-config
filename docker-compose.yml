@@ -20,7 +20,7 @@ services:
             - "4000"
             - "5000"
         environment:
-            MONGODB_URI:
+            MONGODB_URI: ${MONGODB_URI_IDP}
             REDIS_HOST: "dev-redis:6379"
             HYDRA_ADMIN_HOST: "172.31.84.238:9001"
             ENABLE_TLS_VERIFICATION: 0
@@ -34,7 +34,7 @@ services:
         expose:
             - "4000"
         environment:
-            MONGODB_URI:
+            MONGODB_URI: ${MONGODB_URI_IPFS}
             JWT_VALIDATION_URI: "http://idp-catena:5000/v1/auth/validate_token"
             ADMIN_HYDRA_HOST: "172.31.84.238:9001"
             IPFS_API_SERVER_URI: "http://172.31.78.68:5001/api/v0/"
