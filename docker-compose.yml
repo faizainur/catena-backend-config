@@ -24,8 +24,9 @@ services:
             REDIS_HOST: "dev-redis:6379"
             HYDRA_ADMIN_HOST: "172.31.84.238:9001"
             ENABLE_TLS_VERIFICATION: 0
-            OAUTH_LOGIN_CALLBACK: "http://catena.id/oauth2/login"
-            OAUTH_CONSENT_CALLBACK: "http://catena.id/oauth2/authorize"
+            OAUTH_LOGIN_CALLBACK: "https://catena.id/oauth2/login"
+            OAUTH_CONSENT_CALLBACK: "https://catena.id/oauth2/authorize"
+            RESET_PASSWORD_URI: "https://catena.id/reset_password"
             PORT_LISTEN: 5000
     ifps-api:
         container_name: ipfs-api
